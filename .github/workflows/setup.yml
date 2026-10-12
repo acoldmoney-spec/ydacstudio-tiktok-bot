@@ -1,0 +1,41 @@
+name: Prepare video library
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: prepare-video-library
+  cancel-in-progress: false
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract and verify approved videos
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, re, zipfile
+          from pathlib import Path
+          for archive in sorted(Path('.').glob('bundle-*.zip')):
+              with zipfile.ZipFile(archive) as z:
+                  for name in z.namelist():
+                      if not re.fullmatch(r'(?:[0-9]{2}\.mp4|bot\.py|queue\.json)', name):
+                          raise SystemExit('Unexpected archive member')
+                  z.extractall('.')
+          plan = json.loads(Path('queue.json').read_text())
+          assert len(plan['posts']) == 60
+          for post in plan['posts']:
+              filename = f'{post["day"]:02d}.mp4'
+              assert hashlib.sha256(Path(filename).read_bytes()).hexdigest() == post['sha256']
+          print('60 approved videos verified')
+          PY
+      - name: Publish verified video library
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- '*.mp4' bot.py queue.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Prepare verified Indonesian video library'
+            git push
+          fi
