@@ -1,0 +1,20 @@
+name: Daily TikTok queue
+on:
+  schedule:
+    - cron: '17 0,6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: daily-tiktok-queue
+  cancel-in-progress: false
+jobs:
+  schedule:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Maintain seven days of automatic TikTok posts
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+        run: python3 bot.py --apply
