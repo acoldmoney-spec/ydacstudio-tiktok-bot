@@ -57,7 +57,9 @@ def validate(plan):
 def existing_posts(channel):
     query = '''query($input: PostsInput!, $after: String) {
       posts(first: 100, after: $after, input: $input) {
-        edges { node { id text dueAt status schedulingType } }
+        edges { node { id text dueAt status schedulingType
+          metadata { ... on TiktokPostMetadata { isAiGenerated } }
+        } }
         pageInfo { hasNextPage endCursor }
       }
     }'''
@@ -84,9 +86,32 @@ def already_present(post, existing):
         raise RuntimeError(f'Day {post["day"]} has remote status {remote["status"]}; review required.')
     if remote['schedulingType'] != 'automatic':
         raise RuntimeError(f'Day {post["day"]} requires manual posting; stopped.')
+    if not remote.get('metadata', {}).get('isAiGenerated'):
+        raise RuntimeError(f'Day {post["day"]} is missing its AI disclosure; stopped.')
     if remote['dueAt'] and datetime.fromisoformat(remote['dueAt'].replace('Z', '+00:00')) != due(post):
         raise RuntimeError(f'Day {post["day"]} has a different scheduled time; stopped.')
     return True
+
+
+def revision_target(post, existing):
+    """Resolve an approved edit to the existing scheduled post, without duplicating it."""
+    old_text = post.get('previous_caption')
+    if not old_text:
+        return None
+    matches = [p for p in existing if p['text'].strip() == old_text.strip()]
+    if len(matches) > 1:
+        raise RuntimeError(f'Duplicate old posts for day {post["day"]}; stopped.')
+    if not matches:
+        return None
+    remote = matches[0]
+    if remote['id'] != post['revision_post_id']:
+        raise RuntimeError('Approved revision does not match the expected post ID.')
+    already_present(dict(post, caption=old_text), [remote])
+    if remote['status'] == 'sent':
+        raise RuntimeError('Cannot revise an already published video.')
+    if any(p['text'].strip() == post['caption'].strip() for p in existing):
+        raise RuntimeError('Both original and revised posts exist; review required.')
+    return remote
 
 
 def run(apply=False, now=None):
@@ -111,11 +136,36 @@ def run(apply=False, now=None):
     queued = sum(p['status'] in ('buffer', 'scheduled') for p in existing)
     mutation = '''mutation($input: CreatePostInput!) {
       createPost(input: $input) {
-        ... on PostActionSuccess { post { id text dueAt status schedulingType } }
+        ... on PostActionSuccess { post { id text dueAt status schedulingType
+          metadata { ... on TiktokPostMetadata { isAiGenerated } }
+        } }
+        ... on MutationError { message }
+      }
+    }'''
+    edit_mutation = '''mutation($input: EditPostInput!) {
+      editPost(input: $input) {
+        ... on PostActionSuccess { post { id text dueAt status schedulingType
+          metadata { ... on TiktokPostMetadata { isAiGenerated } }
+        } }
         ... on MutationError { message }
       }
     }'''
     for post in selected:
+        old = revision_target(post, existing)
+        if old:
+            edit_input = {'id': old['id'], 'text': post['caption'],
+                          'assets': [{'video': {'url': post['media_url']}}],
+                          'schedulingType': 'automatic', 'aiAssisted': True,
+                          'metadata': {'tiktok': {'isAiGenerated': True}}}
+            result = api(edit_mutation, {'input': edit_input})['editPost']
+            if not result.get('post'):
+                raise RuntimeError('Buffer rejected the revision: ' + result.get('message', 'unknown error'))
+            if result['post']['id'] != old['id']:
+                raise RuntimeError('Revision returned an unexpected post ID.')
+            already_present(post, [result['post']])
+            existing[existing.index(old)] = result['post']
+            print(f'Day {post["day"]}: revised existing post {old["id"]}; AI disclosure confirmed.')
+            continue
         if already_present(post, existing):
             print(f'Day {post["day"]}: already scheduled.')
             continue

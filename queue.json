@@ -15,27 +15,36 @@
       "app": "Vakit",
       "title": "Rencana hari ini",
       "scheduled_at_jakarta": "2026-10-14T19:00:00+07:00",
-      "caption": "Hari mendadak sibuk. Ia melihat waktu salat berikutnya, lalu menyusun rencana. Vakit menemani kegiatanmu sehari-hari.\n\nCek waktu salat dan atur pengingat ibadah bersama Vakit.\n#WaktuSalat #PengingatSalat #IbadahHarian #Vakit #YDACStudio",
-      "sha256": "767d940bdd1962734cb2d54d8f4d57bc47d56a2ad6b8dcded20918cad4b29756",
-      "media_url": "https://raw.githubusercontent.com/acoldmoney-spec/ydacstudio-tiktok-bot/main/02.mp4"
+      "caption": "Cari arah kiblat? Kenali fitur kiblat di aplikasi Vakit. Tampilan dalam video adalah contoh demonstrasi; gunakan sesuai lokasi Anda.\n\nCari Vakit di App Store atau Google Play.\n#ArahKiblat #AplikasiMuslim #IbadahHarian #Vakit #YDACStudio",
+      "sha256": "499a1fb3692c27c58ab28c5c6c70c973d8d2333799c8a0ece0ebec6ba9140e79",
+      "media_url": "https://raw.githubusercontent.com/acoldmoney-spec/ydacstudio-tiktok-bot/main/02.mp4?revision=499a1fb3692c",
+      "previous_caption": "Hari mendadak sibuk. Ia melihat waktu salat berikutnya, lalu menyusun rencana. Vakit menemani kegiatanmu sehari-hari.\n\nCek waktu salat dan atur pengingat ibadah bersama Vakit.\n#WaktuSalat #PengingatSalat #IbadahHarian #Vakit #YDACStudio",
+      "revision_post_id": "6acd54335462be2e9025ab1e",
+      "experiment": "direct_app_demo_20261014"
     },
     {
       "day": 3,
       "app": "Elif Ba Kids",
       "title": "Menemukan bersama",
       "scheduled_at_jakarta": "2026-10-15T19:00:00+07:00",
-      "caption": "Huruf apa ini, tanyanya. Mereka menyentuh, mendengarkan, lalu mengulang bersama. Penemuan kecil bersama Elif Ba Kids.\n\nAjak si kecil belajar hijaiyah sambil bermain bersama Elif Ba Kids.\n#BelajarMengaji #HurufHijaiyah #AnakMuslim #ElifBaKids #YDACStudio",
-      "sha256": "482440dd173ce45678c601e8efc7677bcea14d3b39720bef49afd2eef64777ad",
-      "media_url": "https://raw.githubusercontent.com/acoldmoney-spec/ydacstudio-tiktok-bot/main/03.mp4"
+      "caption": "Si kecil mulai belajar hijaiyah? Kenali huruf dan bunyinya bersama Elif Ba Kids. Coba bersama anak Anda.\n\nCari Elif Ba Kids di App Store.\n#BelajarHijaiyah #AnakMuslim #BelajarMengaji #AplikasiAnak #YDACStudio",
+      "sha256": "71014d322c95e090533a8464d2fc648bcf4ccfd0e5b7c291611658eb38ef03db",
+      "media_url": "https://raw.githubusercontent.com/acoldmoney-spec/ydacstudio-tiktok-bot/main/03.mp4?revision=71014d322c95",
+      "previous_caption": "Huruf apa ini, tanyanya. Mereka menyentuh, mendengarkan, lalu mengulang bersama. Penemuan kecil bersama Elif Ba Kids.\n\nAjak si kecil belajar hijaiyah sambil bermain bersama Elif Ba Kids.\n#BelajarMengaji #HurufHijaiyah #AnakMuslim #ElifBaKids #YDACStudio",
+      "revision_post_id": "6acd54333d6121df402f38c7",
+      "experiment": "direct_app_demo_20261014"
     },
     {
       "day": 4,
       "app": "Elif Ba",
       "title": "Dengarkan sekali lagi",
       "scheduled_at_jakarta": "2026-10-16T19:00:00+07:00",
-      "caption": "Ia berhenti pada satu huruf. Tanpa terburu-buru, ia mendengarkan bunyinya lagi. Belajar sesuai ritmemu bersama Elif Ba.\n\nBelajar huruf hijaiyah dan Al-Qur'an bersama Elif Ba.\n#BelajarAlQuran #HurufHijaiyah #BelajarMengaji #ElifBa #YDACStudio",
-      "sha256": "6a7e94d994ef1b10f138eb26892c4511a8e8d5f18f2ecc50e82279e9dfd560fe",
-      "media_url": "https://raw.githubusercontent.com/acoldmoney-spec/ydacstudio-tiktok-bot/main/04.mp4"
+      "caption": "Baru belajar hijaiyah? Mulai dari satu huruf bersama Elif Ba. Dengarkan dan ulangi sesuai ritme Anda.\n\nCari Elif Ba di App Store atau Google Play.\n#BelajarMengaji #HurufHijaiyah #BelajarAlQuran #AplikasiMengaji #YDACStudio",
+      "sha256": "dd27969130f3b097892c5d83d8f247defaf6acc1c24468b791157e6b557dc32f",
+      "media_url": "https://raw.githubusercontent.com/acoldmoney-spec/ydacstudio-tiktok-bot/main/04.mp4?revision=dd27969130f3",
+      "previous_caption": "Ia berhenti pada satu huruf. Tanpa terburu-buru, ia mendengarkan bunyinya lagi. Belajar sesuai ritmemu bersama Elif Ba.\n\nBelajar huruf hijaiyah dan Al-Qur'an bersama Elif Ba.\n#BelajarAlQuran #HurufHijaiyah #BelajarMengaji #ElifBa #YDACStudio",
+      "revision_post_id": "6acd54345229b40e86824409",
+      "experiment": "direct_app_demo_20261014"
     },
     {
       "day": 5,
@@ -541,5 +550,19 @@
       "sha256": "712b6a7d3ffed67c3a813489d62138deabf2c60e1a8e5d36e227e545969fedc8",
       "media_url": "https://raw.githubusercontent.com/acoldmoney-spec/ydacstudio-tiktok-bot/main/60.mp4"
     }
-  ]
+  ],
+  "experiment": {
+    "days": [
+      2,
+      3,
+      4
+    ],
+    "goal": "Measure Indonesian audience share; no guaranteed country targeting",
+    "baseline": {
+      "post_id": "7696121770079718708",
+      "views": 106,
+      "turkey_percent": 94.6,
+      "for_you_percent": 87.2
+    }
+  }
 }
